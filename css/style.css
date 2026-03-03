@@ -1,167 +1,127 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500;700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Fredoka', sans-serif;
-}
-
 body {
-    background-color: #ffeaf2; 
-    background-image: 
-        radial-gradient(#ffb6c1 1px, transparent 1px);
-    background-size: 30px 30px; 
+    margin: 0;
+    padding: 20px;
+    font-family: 'Fredoka', sans-serif;
+    background-color: #ffe4ef;
+    background-image: radial-gradient(#ffb6c1 2px, transparent 2px);
+    background-size: 30px 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
-.container {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 30px;
-    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    border: 4px solid #ffb6c1;
-    position: relative;
+.main-container {
+    display: flex;
+    align-items: stretch; /* Faz as duas caixas terem a mesma altura */
+    max-width: 1000px;
+    width: 100%;
+    filter: drop-shadow(0 15px 30px rgba(255, 182, 193, 0.5));
 }
 
+/* CAIXA DE BUSCA (ESQUERDA) */
+.search-card {
+    background: white;
+    flex: 1;
+    min-width: 350px;
+    padding: 40px;
+    border-radius: 50px 0 0 50px; /* Arredonda só o lado esquerdo */
+    border: 8px solid #ffc0cb;
+    border-right: none; /* Tira a borda da direita para grudar */
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
 
-.container::before {
-    content: '🎀';
-    font-size: 50px;
+/* CAIXA DE RESULTADOS (DIREITA) */
+.result-card {
+    background: #fffafa;
+    flex: 1.5;
+    padding: 40px;
+    border-radius: 0 50px 50px 0; /* Arredonda só o lado direito */
+    border: 8px solid #ffc0cb;
+    border-left: 4px dashed #ffc0cb; /* Divisória fofa entre as duas */
+    text-align: left;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+/* Lacinho */
+.bow-icon {
     position: absolute;
     top: -35px;
     left: 10px;
-    transform: rotate(-15deg);
+    font-size: 65px;
+    z-index: 10;
 }
 
-h1 {
-    color: #ff4d88;
-    margin-bottom: 25px;
-    font-size: 24px;
-    font-weight: 700;
-}
+.kitty-img { width: 120px; margin-bottom: 10px; }
+.title { color: #ff4d8d; font-size: 28px; margin-bottom: 20px; }
 
+/* Inputs e Botões */
 input {
     width: 100%;
     padding: 15px;
-    border: 2px solid #ffd1dc;
-    border-radius: 50px;
-    outline: none;
+    border: 3px solid #ffd1dc;
+    border-radius: 30px;
     font-size: 16px;
-    transition: 0.3s;
+    color: #ff4d8d;
     text-align: center;
-    color: #555;
-    background-color: #fffafb;
-}
-
-input:focus {
-    border-color: #ff4d88;
-    box-shadow: 0 0 10px rgba(255, 77, 136, 0.2);
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    outline: none;
 }
 
 button {
     width: 100%;
     padding: 15px;
-    margin-top: 15px;
-    background-color: #ff4d88; 
+    background-color: #ff4d8d;
     color: white;
     border: none;
-    border-radius: 50px;
+    border-radius: 30px;
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
+    box-shadow: 0 5px 0px #d6336c;
 }
 
-button:hover {
-    background-color: #ff1a66;
-    transform: scale(1.03);
+button:active { transform: translateY(3px); box-shadow: none; }
+
+/* Estilização interna dos Resultados */
+.section-title {
+    color: #ff4d8d;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 15px 0 8px 5px;
 }
 
-button:active {
-    transform: scale(0.98);
-}
-
-#resultado {
-    margin-top: 25px;
-    text-align: left;
-    background-color: #fff0f5;
-    padding: 20px;
-    border-radius: 20px;
-    border: 2px dashed #ffb6c1;
-    min-height: 50px;
-    color: #444;
-}
-
-#resultado p {
+.result-box {
+    background: white;
+    padding: 12px 15px;
+    border-radius: 15px;
     margin-bottom: 8px;
-    font-size: 17px;
-    border-bottom: 1px solid #ffe0e9;
-    padding-bottom: 4px;
+    border: 1px solid #ffe4ef;
 }
 
-#resultado p:last-child {
-    border-bottom: none;
+label {
+    display: block;
+    font-size: 11px;
+    color: #ffb6c1;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-#resultado strong {
-    color: #ff4d88;
-    font-size: 14pt;
-}
+.value { font-size: 16px; color: #555; font-weight: 400; }
+.row { display: flex; gap: 8px; }
+.badge { color: #ff4d8d; font-weight: 600; }
 
+.hidden { display: none; }
+.error { color: #ff0000; font-size: 14px; margin-top: 15px; }
+#loader { margin-top: 15px; color: #ff4d8d; }
 
-#resultado:empty {
-    display: none;
-}
-
-
-.erro {
-    color: #ff0000;
-    text-align: center;
-    font-weight: bold;
-}
-
-
-.kitty-img {
-    width: 120px; 
-    height: auto;
-    margin-bottom: 10px;
-    animation: flutuar 3s ease-in-out infinite;
-}
-
-@keyframes flutuar {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-
-.container {
-    padding-top: 20px; 
-}
-
-.erro {
-    color: #ff0000;          
-    font-size: 24pt;        
-    font-weight: 1500;        
-    text-align: center;      
-    display: block;       
-    text-shadow: 1px 1px 0px white; 
-    animation: pulsar 1s infinite;
-}
-
-
-@keyframes pulsar {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+/* Ajuste para telas pequenas (Celular) */
+@media (max-width: 800px) {
+    .main-container { flex-direction: column; }
+    .search-card { border-radius: 50px 50px 0 0; border-right: 8px solid #ffc0cb; border-bottom: none; }
+    .result-card { border-radius: 0 0 50px 50px; border-left: 8px solid #ffc0cb; border-top: 4px dashed #ffc0cb; }
 }

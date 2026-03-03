@@ -1,28 +1,54 @@
-function buscarCEP() {
-            const cep = document.getElementById("cep").value;
-            const resultado = document.getElementById("resultado");
+document.getElementById('btnConsultar').addEventListener('click', consultarCNPJ);
 
-            if (cep.length !== 8 || isNaN(cep)) {
-                resultado.innerHTML = "<p class='erro'>CEP inválido!</p>";
-                return;
-            }
+async function consultarCNPJ() {
+    const input = document.getElementById('cnpjInput');
+    const resultCard = document.getElementById('resultCard');
+    const loader = document.getElementById('loader');
+    const errorMsg = document.getElementById('errorMsg');
 
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.erro) {
-                        resultado.innerHTML = "CEP não encontrado!";
-                    } else {
-                        resultado.innerHTML = `
-                            <p><strong>CEP:</strong> ${data.cep}</p>
-                            <p><strong>Logradouro:</strong> ${data.logradouro}</p>
-                            <p><strong>Bairro:</strong> ${data.bairro}</p>
-                            <p><strong>Cidade:</strong> ${data.localidade}</p>
-                            <p><strong>Estado:</strong> ${data.uf}</p>
-                        `;
-                    }
-                })
-                .catch(error => {
-                    resultado.innerHTML = "Erro ao buscar CEP!";
-                });
+    const cnpj = input.value.replace(/\D/g, '');
+
+    if (cnpj.length !== 14) {
+        alert("Amiguinha, digite os 14 números! ✨");
+        return;
+    }
+
+    errorMsg.classList.add('hidden');
+    resultCard.classList.add('hidden');
+    loader.classList.remove('hidden');
+
+    try {
+        const proxy = "https://cors-anywhere.herokuapp.com/";
+        const url = `https://receitaws.com.br/v1/cnpj/${cnpj}`;
+
+        const response = await fetch(proxy + url);
+
+        if (response.status === 429) {
+            throw new Error("Limite atingido! Espere um pouquinho. 🎀");
         }
+
+        const data = await response.json();
+
+        if (data.status === "ERROR") {
+            throw new Error(data.message || "CNPJ não encontrado!");
+        }
+
+        // Preenchendo os campos
+        document.getElementById('res-nome').innerText = data.nome;
+        document.getElementById('res-situacao').innerText = data.situacao;
+        document.getElementById('res-abertura').innerText = data.abertura;
+        document.getElementById('res-atividade').innerText = data.atividade_principal[0].text;
+        document.getElementById('res-endereco').innerText = `${data.logradouro}, ${data.numero}`;
+        document.getElementById('res-bairro').innerText = data.bairro || "Não informado";
+        document.getElementById('res-cidade-uf').innerText = `${data.municipio} / ${data.uf}`;
+
+        // Mostra a caixinha da direita
+        resultCard.classList.remove('hidden');
+
+    } catch (error) {
+        errorMsg.innerText = "Ops! " + error.message;
+        errorMsg.classList.remove('hidden');
+    } finally {
+        loader.classList.add('hidden');
+    }
+}

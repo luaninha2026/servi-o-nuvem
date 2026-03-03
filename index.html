@@ -1,19 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta CEP - ViaCEP</title>
+    <title>Hello Kitty - Consulta CNPJ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <img src="imagens/b2f16a9427967dea9cfd26c3f0cd62e0-removebg-preview.png" alt="Hello Kitty" class="kitty-img">
-        
-        <h1>Consulta CEP - ViaCEP</h1>
-        <input type="text" id="cep" placeholder="Digite o CEP (8 dígitos)">
-        <button onclick="buscarCEP()">Buscar</button>
-        <div id="resultado"></div>
+
+    <div class="main-container">
+        <!-- LADO ESQUERDO: BUSCA -->
+        <div class="search-card">
+            <div class="bow-icon">🎀</div>
+            <img src="imagens/b2f16a9427967dea9cfd26c3f0cd62e0-removebg-preview.png" alt="Hello Kitty" class="kitty-img">
+            <h1 class="title">Consulta CNPJ</h1>
+            
+            <div class="input-section">
+                <input type="text" id="cnpjInput" placeholder="00.000.000/0000-00" maxlength="18">
+                <button id="btnConsultar">Buscar ✨</button>
+            </div>
+            <div id="loader" class="hidden">Buscando... 💕</div>
+            <div id="errorMsg" class="error hidden"></div>
+        </div>
+
+        <!-- LADO DIREITO: RESULTADOS (Fica grudado) -->
+        <div id="resultCard" class="result-card hidden">
+            <div class="section-title">🐾 Identificação</div>
+            <div class="result-box">
+                <label>Razão Social</label>
+                <div id="res-nome" class="value"></div>
+            </div>
+
+            <div class="row">
+                <div class="result-box">
+                    <label>Situação</label>
+                    <div id="res-situacao" class="value badge"></div>
+                </div>
+                <div class="result-box">
+                    <label>Abertura</label>
+                    <div id="res-abertura" class="value"></div>
+                </div>
+            </div>
+
+            <div class="section-title">📍 Localização</div>
+            <div class="result-box">
+                <label>Endereço</label>
+                <div id="res-endereco" class="value"></div>
+            </div>
+            <div class="row">
+                <div class="result-box">
+                    <label>Bairro</label>
+                    <div id="res-bairro" class="value"></div>
+                </div>
+                <div class="result-box">
+                    <label>Cidade/UF</label>
+                    <div id="res-cidade-uf" class="value"></div>
+                </div>
+            </div>
+
+            <div class="section-title">📋 Atividade Principal</div>
+            <div class="result-box">
+                <div id="res-atividade" class="value"></div>
+            </div>
+        </div>
     </div>
 
     <script src="javascript/script.js"></script>

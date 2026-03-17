@@ -3,43 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estação Meteorológica Pessoal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- fonte mais estilizada e moderna -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <title>Nexus Finance - Conversor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="card" id="weather-card">
-            <h1>Estação Meteorológica Pessoal</h1>
-            <div class="input-group">
-                <input type="text" id="cidade-input" placeholder="Digite a cidade...">
-                <button id="buscar-btn">Buscar</button>
+
+<div class="bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+
+<div class="card">
+    <span class="corner corner-tl"></span>
+    <span class="corner corner-tr"></span>
+    <span class="corner corner-bl"></span>
+    <span class="corner corner-br"></span>
+
+    <header>
+        <div class="logo-line">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 1C6.48 1 2 5.48 2 11s4.48 10 10 10 10-4.48 10-10S17.52 1 12 1zm1 14.93V17h-2v-1.06C9.42 15.54 8 14.37 8 13h2c0 .55.9 1 2 1s2-.45 2-1c0-.6-.55-.93-2.3-1.37-2.04-.5-3.7-1.13-3.7-3.13 0-1.37 1.42-2.54 3-2.94V5h2v1.06c1.58.4 3 1.57 3 2.94h-2c0-.55-.9-1-2-1s-2 .45-2 1c0 .6.55.93 2.3 1.37 2.04.5 3.7 1.13 3.7 3.13 0 1.37-1.42 2.54-3 2.43z"/>
+                </svg>
             </div>
-            <div class="local-group">
-                <button id="local-btn" title="Buscar clima do meu local atual">📍 Meu Local Atual</button>
-            </div>
-            <div class="resultado" id="resultado">
-                <!-- Os dados do clima aparecerão aqui -->
-            </div>
+            <h1>Nexus<span>Finance</span></h1>
         </div>
-        <div class="historico">
-            <h3>Últimas cidades pesquisadas</h3>
-            <div id="historico-lista"></div>
-            <button id="limpar-historico-btn">Limpar histórico</button>
-        </div>
+        <p>Cotações em tempo real</p>
+    </header>
+
+    <div class="divider">
+        <span class="divider-dot"></span>
+        <span class="divider-dot"></span>
+        <span class="divider-dot"></span>
     </div>
 
-    <div class="theme-toggle">
-        <label for="dark-mode-toggle">
-            <input type="checkbox" id="dark-mode-toggle" style="display: none;">
-            <span class="icon-sun">☀️</span>
-            <span class="icon-moon">🌙</span>
-        </label>
-    </div>
+    <main>
+        <div class="field">
+            <label for="amount">Valor a converter</label>
+            <input type="number" id="amount" placeholder="0.00" step="0.01">
+        </div>
 
-    <script src="javascript/script.js"></script>
+        <div class="currencies-grid">
+            <div class="field" style="margin-bottom:0">
+                <label>De</label>
+                <div class="select-wrap">
+                    <select id="fromCurrency">
+                        <option value="BRL">BRL — Real</option>
+                        <option value="USD" selected>USD — Dólar</option>
+                        <option value="EUR">EUR — Euro</option>
+                        <option value="GBP">GBP — Libra</option>
+                        <option value="JPY">JPY — Iene</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="swap-btn" id="swapBtn" title="Inverter moedas">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+            </button>
+
+            <div class="field" style="margin-bottom:0">
+                <label>Para</label>
+                <div class="select-wrap">
+                    <select id="toCurrency">
+                        <option value="BRL" selected>BRL — Real</option>
+                        <option value="USD">USD — Dólar</option>
+                        <option value="EUR">EUR — Euro</option>
+                        <option value="GBP">GBP — Libra</option>
+                        <option value="JPY">JPY — Iene</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button class="convert-btn" id="convertBtn">Converter Agora</button>
+
+        <div id="resultContainer" class="result-card">
+            <p id="resultValue">—</p>
+            <small id="lastUpdate">Aguardando operação...</small>
+        </div>
+    </main>
+</div>
+
+<script src="javascript/script.js"></script>
 </body>
 </html>
